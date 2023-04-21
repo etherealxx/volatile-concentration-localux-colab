@@ -23,17 +23,28 @@ for i, colabname in enumerate(sortedcolabname):
 for colabpair in colabnamepair:
   print(colabpair)
 
-choosenumber = input('Choose the number of the model you want: ')
-if choosenumber.isdigit() and int(choosenumber) < totalcolabcount:
-  chosencolabname = sortedcolabname[int(choosenumber)] + '_webui_colab.ipynb'
-  print("Model from " + chosencolabname + " will be downloaded immediately after all the dependencies is installed. Please wait")
+chosencolabname = ''
+
+while True:
+  choosenumber = input('Choose the number of the model you want: ')
+  if choosenumber.isdigit() and int(choosenumber) < totalcolabcount:
+    chosencolabname = sortedcolabname[int(choosenumber)] + '_webui_colab.ipynb'
+    print("Model from " + chosencolabname + " will be downloaded immediately after all the dependencies is installed. Please wait")
+    break
+  elif choosenumber == '':
+    print("No model will be pre-downloaded. Dependencies installation will continue.")
+    break
 
 aria2c_lines = []
-with open(os.path.join(everycolab, chosencolabname), 'r', encoding='utf-8') as f:
-    for line in f:
-        stripped_line = line.strip()
-        if stripped_line.startswith('"!aria2c'):
-            aria2c_lines.append(stripped_line)
 
-with open('/content/arialist.pkl', 'wb') as f:
-    pickle.dump(aria2c_lines, f)
+if chosencolabname:
+   if os.path.exists(os.path.join(everycolab, chosencolabname)):
+      with open(os.path.join(everycolab, chosencolabname), 'r', encoding='utf-8') as f:
+          for line in f:
+              stripped_line = line.strip()
+              if stripped_line.startswith('"!aria2c'):
+                  aria2c_lines.append(stripped_line)
+
+if aria2c_lines:
+  with open('/content/arialist.pkl', 'wb') as f:
+      pickle.dump(aria2c_lines, f)
