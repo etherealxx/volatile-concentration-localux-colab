@@ -1,7 +1,7 @@
 import os, subprocess, sys
 
+debugmode = False
 curdir = '/'
-colabpath = r"C:\Users\Ethereal\Downloads\526_mix_webui_colab.ipynb"
 linetoexecute_part1, linetoexecute_part2, linetoexecute_part3 = [], [], []
 startcapture = False
 afteraria = False
@@ -24,6 +24,8 @@ if len(sys.argv) == 4:
     parttoexecute = partargs
 
 colabpath = f"/content/camendurus/{currentbranch}/{filename}"
+if debugmode==True:
+    colabpath = r"C:\Users\Ethereal\Downloads\526_mix_webui_colab.ipynb"
 
 with open(colabpath, 'r', encoding='utf-8') as f:
     for line in f:
@@ -67,8 +69,6 @@ def debugline(codetodebug):
         for line in codetodebug:
             print(line)
 
-debugline(linetoexecute_part1)
-
 def rulesbroken(codetoexecute, cwd=''):
     for line in codetoexecute:
         line = line.strip()
@@ -85,10 +85,12 @@ def rulesbroken(codetoexecute, cwd=''):
                         subprocess.run(line, shell=True, check=True)
                 except Exception as e:
                     print("Exception: " + str(e))
-
-if parttoexecute == 'part1':
-    rulesbroken(linetoexecute_part1)
-elif parttoexecute == 'part2':
-    rulesbroken(linetoexecute_part1)
-elif parttoexecute == 'part3':
-    rulesbroken(linetoexecute_part1)
+if debugmode==True:
+    debugline(linetoexecute_part1)
+else:
+    if parttoexecute == 'part1':
+        rulesbroken(linetoexecute_part1)
+    elif parttoexecute == 'part2':
+        rulesbroken(linetoexecute_part1)
+    elif parttoexecute == 'part3':
+        rulesbroken(linetoexecute_part1)
