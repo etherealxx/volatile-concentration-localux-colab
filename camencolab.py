@@ -1,17 +1,31 @@
 import os, subprocess, sys
 
-partargs = sys.argv[1]
 curdir = '/'
-testpath = r"C:\Users\Ethereal\Downloads\526_mix_webui_colab.ipynb"
+colabpath = r"C:\Users\Ethereal\Downloads\526_mix_webui_colab.ipynb"
 linetoexecute_part1, linetoexecute_part2, linetoexecute_part3 = [], [], []
 startcapture = False
 afteraria = False
 currentpart = 'part1'
 parttoexecute = 'part1'
-if partargs:
+currentbranch = 'stable'
+partargs, branchargs, filenameargs = '', '', ''
+filename = 'stable_diffusion_1_5_webui_colab.ipynb'
+
+if len(sys.argv) == 2:
+    filenameargs = sys.argv[1]
+    filename = filenameargs
+
+if len(sys.argv) == 3:
+    branchargs = sys.argv[2]
+    currentbranch = branchargs
+
+if len(sys.argv) == 4:
+    partargs = sys.argv[3]
     parttoexecute = partargs
 
-with open(testpath, 'r', encoding='utf-8') as f:
+colabpath = f"/content/camendurus/{currentbranch}/{filename}"
+
+with open(colabpath, 'r', encoding='utf-8') as f:
     for line in f:
         stripped_line = line.strip()
         if stripped_line.startswith(r'"%cd /content'):
