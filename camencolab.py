@@ -1,4 +1,4 @@
-import os, subprocess, sys
+import os, subprocess, sys, shlex
 
 debugmode = False
 curdir = '/'
@@ -80,9 +80,18 @@ def rulesbroken(codetoexecute, cwd=''):
             else:
                 try:
                     if curdir:
-                        subprocess.run(line, shell=True, check=True, cwd=curdir)
-                    else:
-                        subprocess.run(line, shell=True, check=True)
+                        splittedcommand = shlex.split(line)
+                        # subprocess.run(line, shell=True, check=True, cwd=curdir)
+                        process = subprocess.Popen(splittedcommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, cwd=curdir)
+                        while True:
+                            # Read the output from the process
+                            nextline = process.stdout.readline()
+                            if nextline == '' and process.poll() is not None:
+                                break
+                            # Check if the line contains progress information
+                            else:
+                                print(nextline, end='')
+                                
                 except Exception as e:
                     print("Exception: " + str(e))
 if debugmode==True:
