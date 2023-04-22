@@ -1,6 +1,7 @@
 import os, pickle, subprocess
 
 arialines = None
+colaboptions = None
 downloadcnet = False
 
 if os.path.exists('/content/arialist.pkl'):
@@ -9,7 +10,9 @@ if os.path.exists('/content/arialist.pkl'):
 
 if os.path.exists('/content/colaboptions.pkl'):
   with open('/content/colaboptions.pkl', 'rb') as f:
-      downloadcnet = pickle.load(f)
+      colaboptions = pickle.load(f)
+      downloadcnet = colaboptions["controlnet"]
+      downloadmodels = colaboptions["download_model"]
 
 def subprocessing(execline):
   try:
@@ -27,5 +30,6 @@ if arialines:
          if downloadcnet:
             subprocessing(ariaexecline)
       else:
-        subprocessing(ariaexecline)
+        if downloadmodels:
+          subprocessing(ariaexecline)
 
