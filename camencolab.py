@@ -90,8 +90,13 @@ def rulesbroken(codetoexecute, cwd=''):
                                 break
                             # Check if the line contains progress information
                             else:
-                                print(nextline, end='')
-                                
+                                if "%" in nextline.strip():
+                                    stripnext = nextline.strip()
+                                    print("\r", end="")
+                                    print(f"\r{stripnext}", end='')
+                                else:
+                                    print(nextline, end='')
+
                 except Exception as e:
                     print("Exception: " + str(e))
 if debugmode==True:
