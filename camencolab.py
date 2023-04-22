@@ -70,6 +70,7 @@ def debugline(codetodebug):
             print(line)
 
 def rulesbroken(codetoexecute, cwd=''):
+    global curdir
     for line in codetoexecute:
         line = line.strip()
         if line.startswith('!'):
