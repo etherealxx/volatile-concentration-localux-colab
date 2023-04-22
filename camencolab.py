@@ -105,6 +105,6 @@ else:
     if parttoexecute == 'part1':
         rulesbroken(linetoexecute_part1)
     elif parttoexecute == 'part2':
-        rulesbroken(linetoexecute_part1)
+        rulesbroken(linetoexecute_part2)
     elif parttoexecute == 'part3':
-        rulesbroken(linetoexecute_part1)
+        rulesbroken(linetoexecute_part3)
