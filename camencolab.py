@@ -47,6 +47,8 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 currentpart = 'part2'
             elif stripped_line.startswith('sed'):
                 currentpart = 'part3'
+            if 'camenduru/stable-diffusion-webui' in stripped_line and not '/content/volatile-concentration-localux' in stripped_line:
+                stripped_line += ' /content/volatile-concentration-localux'
             if stripped_line:
                 if stripped_line.startswith('aria2c') and not '4x-UltraSharp.pth' in stripped_line:
                     pass
@@ -82,11 +84,11 @@ def rulesbroken(codetoexecute, cwd=''):
         if not line == '':
             if line.startswith(r'%cd'):
                 curdir = line.replace(r'%cd', '').strip()
-            elif 'reset --hard' in line:
-                if 'stable-diffusion-stability-ai' in line:
-                    subprocess.run(["git", "reset", "--hard"], cwd="/content/volatile-concentration-localux/repositories/stable-diffusion-stability-ai")
-                else:
-                    subprocess.run(["git", "reset", "--hard"], cwd="/content/volatile-concentration-localux")
+            # elif 'reset --hard' in line:
+            #     if 'stable-diffusion-stability-ai' in line:
+            #         subprocess.run(["git", "reset", "--hard"], cwd="/content/volatile-concentration-localux/repositories/stable-diffusion-stability-ai")
+            #     else:
+            #         subprocess.run(["git", "reset", "--hard"], cwd="/content/volatile-concentration-localux")
             else:
                 try:
                     if curdir:
