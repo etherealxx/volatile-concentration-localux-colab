@@ -47,8 +47,10 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 currentpart = 'part2'
             elif stripped_line.startswith('sed'):
                 currentpart = 'part3'
-            if 'camenduru/stable-diffusion-webui' in stripped_line and not '/content/volatile-concentration-localux' in stripped_line:
-                stripped_line += ' /content/volatile-concentration-localux'
+            camendururepo = 'camenduru/stable-diffusion-webui'
+            if camendururepo in stripped_line and not '/content/volatile-concentration-localux' in stripped_line:
+                if camendururepo in stripped_line and (stripped_line.find(camendururepo) + len(camendururepo) == len(stripped_line) or stripped_line[stripped_line.find(camendururepo) + len(camendururepo)] in [' ', '\n']):
+                    stripped_line += ' /content/volatile-concentration-localux'
             if stripped_line:
                 if stripped_line.startswith('aria2c') and not '4x-UltraSharp.pth' in stripped_line:
                     pass
@@ -92,6 +94,8 @@ def rulesbroken(codetoexecute, cwd=''):
             else:
                 try:
                     if curdir:
+                        print("[1;32m" + line)
+                        print('[0m')
                         splittedcommand = shlex.split(line)
                         # subprocess.run(line, shell=True, check=True, cwd=curdir)
                         process = subprocess.Popen(splittedcommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, cwd=curdir)
