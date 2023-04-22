@@ -52,6 +52,10 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                     pass
                 elif stripped_line.startswith(r'%env'):
                     pass
+                elif stripped_line.startswith('python launch.py'):
+                    pass
+                elif stripped_line=='rm *.deb':
+                    pass
                 else:
                     commandtoappend = stripped_line.replace('/content/stable-diffusion-webui', '/content/volatile-concentration-localux')
                     if currentpart == 'part1':
@@ -78,6 +82,11 @@ def rulesbroken(codetoexecute, cwd=''):
         if not line == '':
             if line.startswith(r'%cd'):
                 curdir = line.replace(r'%cd', '').strip()
+            elif 'reset --hard' in line:
+                if 'stable-diffusion-stability-ai' in line:
+                    subprocess.run(["git", "reset", "--hard"], cwd="/content/volatile-concentration-localux/repositories/stable-diffusion-stability-ai")
+                else:
+                    subprocess.run(["git", "reset", "--hard"], cwd="/content/volatile-concentration-localux")
             else:
                 try:
                     if curdir:
