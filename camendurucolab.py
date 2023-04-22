@@ -1,4 +1,4 @@
-import os, subprocess, sys, shlex
+import os, subprocess, sys, shlex, pickle
 
 debugmode = False
 curdir = '/'
@@ -8,24 +8,35 @@ afteraria = False
 currentpart = 'part1'
 parttoexecute = 'part1'
 currentbranch = 'stable'
-partargs, branchargs, filenameargs = '', '', ''
+colaboptions = None
+# partargs, branchargs, filenameargs = '', '', ''
+
 filename = 'stable_diffusion_1_5_webui_colab.ipynb'
 
-if len(sys.argv) == 2:
-    filenameargs = sys.argv[1]
-    filename = filenameargs
+if os.path.exists('/content/colaboptions.pkl'):
+  with open('/content/colaboptions.pkl', 'rb') as f:
+      colaboptions = pickle.load(f)
+      currentbranch = colaboptions["branch"]
+      parttoexecute = colaboptions["part"]
+      filename = colaboptions["filename"]
+# if len(sys.argv) == 2:
+#     filenameargs = sys.argv[1]
+#     filename = filenameargs
 
-if len(sys.argv) == 3:
-    branchargs = sys.argv[2]
-    currentbranch = branchargs
+# if len(sys.argv) == 3:
+#     branchargs = sys.argv[2]
+#     currentbranch = branchargs
 
-if len(sys.argv) == 4:
-    partargs = sys.argv[3]
-    parttoexecute = partargs
+# if len(sys.argv) == 4:
+#     partargs = sys.argv[3]
+#     parttoexecute = partargs
 
 colabpath = f"/content/camendurus/{currentbranch}/{filename}"
 if debugmode==True:
     colabpath = r"C:\Users\Ethereal\Downloads\526_mix_webui_colab.ipynb"
+
+print("[1;32mGathering code from " + colabpath + "...")
+print('[0m')
 
 with open(colabpath, 'r', encoding='utf-8') as f:
     for line in f:
