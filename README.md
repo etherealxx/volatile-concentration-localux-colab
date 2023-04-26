@@ -12,3 +12,6 @@ The automatic update works by basically scraping from camenduru's repo, so it wi
 As long as he doesn't change much on the repo code, this colab will always works without the need to maintain it.
 
 Basically proof-of-concept. Would like to hear feedbacks and suggestion on the issues page.
+
+### ⚠️ Things to Note!
+- The usual `/content/stable-diffusion-webui` is renamed to `/content/volatile-concentration-localux`, just keep in mind. Every file and folder inside is normal. (Pretty obvious though)
