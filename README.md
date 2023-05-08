@@ -1,6 +1,6 @@
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/etherealxx/volatile-concentration-localux-colab/blob/main/volatile_concentration_localux_colab.ipynb) <- Click here to access the colab
 # Project VCL-Colab
-Another camenduru colab ~~clone~~ alternative.😋
+Another camenduru colab ~~clone~~ alternative.😋 
 
 Features:
 - All Camenduru colab flavor in one single colab
