@@ -15,3 +15,4 @@ Basically proof-of-concept. Would like to hear feedbacks and suggestion on the i
 
 ### ⚠️ Things to Note!
 - The usual `/content/stable-diffusion-webui` is renamed to `/content/volatile-concentration-localux`, just keep in mind. Every file and folder inside is normal. (Pretty obvious though)
+
