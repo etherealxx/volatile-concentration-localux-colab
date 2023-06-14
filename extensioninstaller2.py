@@ -33,6 +33,10 @@ colabpath = f"/content/camendurus/{currentbranch}/{filename}"
 if debugmode==True:
     colabpath = r"C:\Users\Ethereal\Downloads\526_mix_webui_colab.ipynb"
 
+
+gitclonestring = 'git clone https://github.com/'
+extensionpath = "/content/volatile-concentration-localux/extensions/"
+
 with open(colabpath, 'r', encoding='utf-8') as f:
     pattern = r"(?<!\S)https://github.com/camenduru/stable-diffusion-webui(?!\S)"
     for line in f:
@@ -51,8 +55,12 @@ with open(colabpath, 'r', encoding='utf-8') as f:
             if camendururepo in stripped_line and not '/content/volatile-concentration-localux' in stripped_line:
                 if camendururepo in stripped_line and (stripped_line.find(camendururepo) + len(camendururepo) == len(stripped_line) or stripped_line[stripped_line.find(camendururepo) + len(camendururepo)] in [' ', '\n']):
                     stripped_line += ' /content/volatile-concentration-localux'
-            if stripped_line.startswith('git clone https://github.com/'):
+            if stripped_line.startswith(gitclonestring):
                 commandtoappend = stripped_line.replace('/content/stable-diffusion-webui', '/content/volatile-concentration-localux')
                 extensionlines.append(commandtoappend)
+
+#@Ahmedkel's and @basedholychad's request
+extensionlines.append(f"{gitclonestring}a2569875/stable-diffusion-webui-composable-lora {extensionpath}stable-diffusion-webui-composable-lora")
+extensionlines.append(f"{gitclonestring}DominikDoom/a1111-sd-webui-tagcomplete {extensionpath}a1111-sd-webui-tagcomplete")
 
 pickledump(extensionlines, 'extensions')
