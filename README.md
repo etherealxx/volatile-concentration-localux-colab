@@ -4,7 +4,7 @@ Another camenduru colab ~~clone~~ alternative.😋
 
 Features:
 - All Camenduru colab flavor in one single colab
-- Bypass the damned google colab warning (when it detects `stable-diffusion-webui` string)
+- Bypass the damned google colab warning (when it detects `stable-diffusion-webui` and `sd-webui` string)
 - Option to choose model from a Gradio UI directly on Colab cell output
 - Automatic update, synced in real time with Camenduru's repo
 
@@ -17,4 +17,4 @@ Basically proof-of-concept. Would like to hear feedbacks and suggestion on the i
 - The usual `/content/stable-diffusion-webui` is renamed to `/content/volatile-concentration-localux`, just keep in mind. Every file and folder inside is normal. (Pretty obvious though)
 
 ### 🆙 Latest Update:
-- 14/06/2023 (June): Added `a1111-sd-webui-tagcomplete` and `composable-lora extension` as optional choosable extension
+- 16/06/2023 (June): Added `a1111-sd-webui-tagcomplete` and `composable-lora extension` as optional choosable extension. Fixed 'all extension is missing' bug.
