@@ -1,4 +1,4 @@
-import os, subprocess, shlex, pickle, re
+import os, subprocess, shlex, pickle, re, shutil
 
 debugmode = False
 curdir = '/'
@@ -8,7 +8,7 @@ afteraria = False
 currentpart = 'part1'
 parttoexecute = 'part1'
 currentbranch = 'stable'
-
+emptymodel = False
 
 filename = 'stable_diffusion_1_5_webui_colab.ipynb'
 
@@ -27,6 +27,7 @@ if colaboptions:
   currentbranch = colaboptions["branch"]
   parttoexecute = colaboptions["part"]
   filename = colaboptions["filename"]
+  emptymodel = colaboptions["empty_model"]
 
 
 colabpath = f"/content/camendurus/{currentbranch}/{filename}"
@@ -148,3 +149,18 @@ else:
         rulesbroken(linetoexecute_part2_2)
     elif parttoexecute == 'part3':
         rulesbroken(linetoexecute_part3)
+
+for removed_ext in extensiontoremove:
+    pattern = r"https://github.com/\S+/(\S+)"
+    match = re.search(pattern, ext_line)
+    if match:
+        ext_name = match.group(1)
+        if not ext_name in extensiontoremove:
+            installextensions.append(ext_line)
+
+if extensiontoremove and not emptymodel:
+  for ext in extensiontoremove:
+    extpath = os.path.join('/content/volatile-concentration-localux/extensions', ext)
+    if os.path.exists(extpath):
+      shutil.rmtree(extpath)
+      print(f"removed {ext} extension")
