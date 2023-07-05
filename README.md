@@ -16,6 +16,9 @@ Basically proof-of-concept. Would like to hear feedbacks and suggestion on the i
 ### ⚠️ Things to Note!
 - The usual `/content/stable-diffusion-webui` is renamed to `/content/volatile-concentration-localux`, just keep in mind. Every file and folder inside is normal. (Pretty obvious though)
 
+### ⚠️ Got an Error 403?
+Read [here](https://github.com/etherealxx/volatile-concentration-localux-colab/blob/main/error403guide.md) for guide to fix it.
+
 ### 🆙 Latest Update:
 - 02/07/2025 (July): Bypass the new colab warning that detects `sd-webui` string.
 - 16/06/2023 (June): Added `a1111-sd-webui-tagcomplete` and `composable-lora extension` as optional choosable extension. Fixed 'all extension is missing' bug.
