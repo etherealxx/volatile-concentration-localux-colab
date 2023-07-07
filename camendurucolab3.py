@@ -53,7 +53,7 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 stripped_line = stripped_line[:-4]
             if stripped_line.startswith(r'%env LD'):
                 currentpart = 'part2'
-            elif stripped_line.startswith("git clone https://github.com") and not stripped_line.endswith(camendururepo):
+            elif stripped_line.startswith("git clone") and "https://github.com" in stripped_line and not stripped_line.endswith(camendururepo):
                 currentpart = 'part2_1'
             elif stripped_line.startswith("%cd /content/stable-diffusion-webui"):
                 currentpart = "part2_2"

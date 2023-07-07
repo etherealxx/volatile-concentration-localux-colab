@@ -34,7 +34,7 @@ if debugmode==True:
     colabpath = r"C:\Users\Ethereal\Downloads\526_mix_webui_colab.ipynb"
 
 
-gitclonestring = 'git clone https://github.com/'
+gitclonestring = 'git clone https://github.com/' #not quite used anymore
 extensionpath = "/content/volatile-concentration-localux/extensions/"
 
 with open(colabpath, 'r', encoding='utf-8') as f:
@@ -55,7 +55,7 @@ with open(colabpath, 'r', encoding='utf-8') as f:
             if camendururepo in stripped_line and not '/content/volatile-concentration-localux' in stripped_line:
                 if camendururepo in stripped_line and (stripped_line.find(camendururepo) + len(camendururepo) == len(stripped_line) or stripped_line[stripped_line.find(camendururepo) + len(camendururepo)] in [' ', '\n']):
                     stripped_line += ' /content/volatile-concentration-localux'
-            if stripped_line.startswith(gitclonestring):
+            if stripped_line.startswith("git clone") and "https://github.com" in stripped_line:
                 commandtoappend = stripped_line.replace('/content/stable-diffusion-webui', '/content/volatile-concentration-localux')
                 extensionlines.append(commandtoappend)
 
