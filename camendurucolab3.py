@@ -74,6 +74,10 @@ with open(colabpath, 'r', encoding='utf-8') as f:
             if camendururepo in stripped_line and not '/content/volatile-concentration-localux' in stripped_line:
                 if camendururepo in stripped_line and (stripped_line.find(camendururepo) + len(camendururepo) == len(stripped_line) or stripped_line[stripped_line.find(camendururepo) + len(camendururepo)] in [' ', '\n']):
                     stripped_line += ' /content/volatile-concentration-localux'
+            if currentbranch == "lite":
+                if "https://download.pytorch.org/whl/cu116" in stripped_line and not "torchmetrics==0.11.4" in stripped_line:
+                    line_parts = stripped_line.partition("--extra-index-url")
+                    stripped_line = line_parts[0].strip() + " torchmetrics==0.11.4 " + line_parts[1] + line_parts[2]
             if stripped_line:
                 if stripped_line.startswith('aria2c') and not '4x-UltraSharp.pth' in stripped_line:
                     pass
