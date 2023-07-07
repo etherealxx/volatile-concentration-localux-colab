@@ -20,5 +20,6 @@ Basically proof-of-concept. Would like to hear feedbacks and suggestion on the i
 Read [here](https://github.com/etherealxx/volatile-concentration-localux-colab/blob/main/error403guide.md) for guide to fix it.
 
 ### 🆙 Latest Update:
+- 07/07/2025 (July): Fixed some typo in the repo extract code (fixed lite branch). Added `torchmetrics==0.11.4` as an additional dependency for lite branch.
 - 02/07/2025 (July): Bypass the new colab warning that detects `sd-webui` string.
 - 16/06/2023 (June): Added `a1111-sd-webui-tagcomplete` and `composable-lora extension` as optional choosable extension. Fixed 'all extension is missing' bug.
