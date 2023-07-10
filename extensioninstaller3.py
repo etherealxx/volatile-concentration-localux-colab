@@ -6,6 +6,14 @@ startcapture = False
 afteraria = False
 currentbranch = 'stable'
 extensionlines = []
+additionalextensions = [
+    "https://github.com/a2569875/stable-diffusion-webui-composable-lora", #@basedholychad's request
+    "https://github.com/DominikDoom/a1111-sd-webui-tagcomplete", #@Ahmedkel's request
+    "https://github.com/hnmr293/sd-webui-cutoff", #@Orbimac's request (and 3 other extensions below)
+    "https://github.com/zanllp/sd-webui-infinite-image-browsing",
+    "https://github.com/Coyote-A/ultimate-upscale-for-automatic1111",
+    "https://github.com/Bing-su/adetailer"
+] # You can make a pull request and add your desired extension link here
 
 filename = 'stable_diffusion_1_5_webui_colab.ipynb'
 
@@ -59,8 +67,11 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 commandtoappend = stripped_line.replace('/content/stable-diffusion-webui', '/content/volatile-concentration-localux')
                 extensionlines.append(commandtoappend)
 
-#@Ahmedkel's and @basedholychad's request
-extensionlines.append(f"{gitclonestring}a2569875/stable-diffusion-webui-composable-lora {extensionpath}stable-diffusion-webui-composable-lora")
-extensionlines.append(f"{gitclonestring}DominikDoom/a1111-sd-webui-tagcomplete {extensionpath}a1111-sd-webui-tagcomplete")
+for addextline in additionalextensions:
+    repoowner = addextline.split("/")[-2]
+    reponame = addextline.split("/")[-1]
+    extensionlines.append(f"{gitclonestring}{repoowner}/{reponame} {extensionpath}{reponame}")
+# extensionlines.append(f"{gitclonestring}a2569875/stable-diffusion-webui-composable-lora {extensionpath}stable-diffusion-webui-composable-lora")
+# extensionlines.append(f"{gitclonestring}DominikDoom/a1111-sd-webui-tagcomplete {extensionpath}a1111-sd-webui-tagcomplete")
 
 pickledump(extensionlines, 'extensions')
