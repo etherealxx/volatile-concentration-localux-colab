@@ -1,4 +1,4 @@
-import os, subprocess, sys, shlex, pickle, re
+import os, pickle
 
 debugmode = False
 curdir = '/'
@@ -23,6 +23,15 @@ def pickleload(prevvalue, inputfile):
           return vartopass
   else:
     return prevvalue
+
+def list_additional_ext():
+  addext_txtpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "additionalextensions.txt")
+  with open(addext_txtpath, 'r') as file:
+    lines = [line.rstrip('\n') for line in file]
+    exts = [ext for ext in lines if ext != "" and not ext.startswith("#")]
+    return exts
+
+additionalextensions = list_additional_ext()
 
 colaboptions = pickleload(None, 'colaboptions')
 if colaboptions:
@@ -59,8 +68,11 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 commandtoappend = stripped_line.replace('/content/stable-diffusion-webui', '/content/volatile-concentration-localux')
                 extensionlines.append(commandtoappend)
 
-#@Ahmedkel's and @basedholychad's request
-extensionlines.append(f"{gitclonestring}a2569875/stable-diffusion-webui-composable-lora {extensionpath}stable-diffusion-webui-composable-lora")
-extensionlines.append(f"{gitclonestring}DominikDoom/a1111-sd-webui-tagcomplete {extensionpath}a1111-sd-webui-tagcomplete")
+for addextline in additionalextensions:
+    repoowner = addextline.split("/")[-2]
+    reponame = addextline.split("/")[-1]
+    extensionlines.append(f"{gitclonestring}{repoowner}/{reponame} {extensionpath}{reponame}")
+# extensionlines.append(f"{gitclonestring}a2569875/stable-diffusion-webui-composable-lora {extensionpath}stable-diffusion-webui-composable-lora")
+# extensionlines.append(f"{gitclonestring}DominikDoom/a1111-sd-webui-tagcomplete {extensionpath}a1111-sd-webui-tagcomplete")
 
 pickledump(extensionlines, 'extensions')
