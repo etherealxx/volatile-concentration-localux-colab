@@ -1,4 +1,4 @@
-import os, subprocess, sys, shlex, pickle, re
+import os, pickle
 
 vclvarpath = '/content/vclvariables'
 def pickledump(vartodump, outputfile):
