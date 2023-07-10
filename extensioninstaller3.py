@@ -1,4 +1,4 @@
-import os, pickle
+import os, pickle, re
 
 debugmode = False
 curdir = '/'
