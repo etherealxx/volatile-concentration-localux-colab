@@ -15,16 +15,16 @@ def pickleload(prevvalue, inputfile):
   else:
     return prevvalue
 
+def list_additional_ext():
+  addext_txtpath = os.path.join(os.path.dirname(os.path.abspath(__file__)), "additionalextensions.txt")
+  with open(addext_txtpath, 'r') as file:
+    lines = [line.rstrip('\n') for line in file]
+    exts = [ext for ext in lines if ext != "" and not ext.startswith("#")]
+    return exts
+    
 everyextension = pickleload(None, 'fullextensions')
 
-additionalextensions = [
-    "https://github.com/a2569875/stable-diffusion-webui-composable-lora", #@basedholychad's request
-    "https://github.com/DominikDoom/a1111-sd-webui-tagcomplete", #@Ahmedkel's request
-    "https://github.com/hnmr293/sd-webui-cutoff", #@Orbimac's request (and 3 other extensions below)
-    "https://github.com/zanllp/sd-webui-infinite-image-browsing",
-    "https://github.com/Coyote-A/ultimate-upscale-for-automatic1111",
-    "https://github.com/Bing-su/adetailer"
-] # You can make a pull request and add your desired extension link here
+additionalextensions = list_additional_ext()
 
 extnameonly = [x.split("/")[-1] for x in additionalextensions]
 templist = [x for x in everyextension if x not in extnameonly]
