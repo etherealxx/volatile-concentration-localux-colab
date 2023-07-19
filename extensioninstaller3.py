@@ -29,9 +29,11 @@ def list_additional_ext():
   with open(addext_txtpath, 'r') as file:
     lines = [line.rstrip('\n') for line in file]
     exts = [ext for ext in lines if ext != "" and not ext.startswith("#")]
-    return exts
+    commits = [ext.lstrip("#commit") for ext in lines if ext != "" and ext.startswith("#commit")]
+    branches = [ext.lstrip("#branch") for ext in lines if ext != "" and ext.startswith("#branch")]
+    return exts, commits, branches
 
-additionalextensions = list_additional_ext()
+additionalextensions, additionalcommits, additionalbranches = list_additional_ext()
 
 colaboptions = pickleload(None, 'colaboptions')
 if colaboptions:
@@ -42,8 +44,6 @@ colabpath = f"/content/camendurus/{currentbranch}/{filename}"
 if debugmode==True:
     colabpath = r"C:\Users\Ethereal\Downloads\526_mix_webui_colab.ipynb"
 
-
-gitclonestring = 'git clone https://github.com/' #not quite used anymore
 extensionpath = "/content/volatile-concentration-localux/extensions/"
 
 with open(colabpath, 'r', encoding='utf-8') as f:
@@ -68,10 +68,23 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 commandtoappend = stripped_line.replace('/content/stable-diffusion-webui', '/content/volatile-concentration-localux')
                 extensionlines.append(commandtoappend)
 
-for addextline in additionalextensions:
-    repoowner = addextline.split("/")[-2]
-    reponame = addextline.split("/")[-1]
+for addextgithublink in additionalextensions:
+    gitclonestring = 'git clone https://github.com/'
+    repoowner = addextgithublink.split("/")[-2]
+    reponame = addextgithublink.split("/")[-1]
+    for branchline in additionalbranches:
+        if reponame in branchline:
+            specificbranch = branchline.lstrip(reponame).strip()
+            gitclonestring = f'git clone -b {specificbranch} https://github.com/'
+            break
+
     extensionlines.append(f"{gitclonestring}{repoowner}/{reponame} {extensionpath}{reponame}")
+    for commitline in additionalcommits:
+        if reponame in commitline:
+            specificcommit = commitline.lstrip(reponame).strip()
+            extensionlines.append(f"git checkout {specificcommit} .")
+            break
+
 # extensionlines.append(f"{gitclonestring}a2569875/stable-diffusion-webui-composable-lora {extensionpath}stable-diffusion-webui-composable-lora")
 # extensionlines.append(f"{gitclonestring}DominikDoom/a1111-sd-webui-tagcomplete {extensionpath}a1111-sd-webui-tagcomplete")
 
