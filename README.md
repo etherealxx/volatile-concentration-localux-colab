@@ -22,7 +22,7 @@ Huge thanks to camenduru, without him this colab wouldn't be possible. Check out
 Read [here](https://github.com/etherealxx/volatile-concentration-localux-colab/blob/main/error403guide.md) for guide to fix it.
 
 ### 🆙 Latest Update:
-- 19/07/2025 (July): Added functionality for the extension installer where extension's branch and commits are choosable in `additionalextensions.txt`. `adetailer` version rolled back to commit `4cec57a1fb496f81071321658f1b8c4630530af3`.
+- 20/07/2025 (July): Added functionality for the extension installer where extension's branch and commits are choosable in `additionalextensions.txt`. Removed the whole `libtcmalloc`` lines. Adjusted the way this colab gather the code with the recent changes.
 - 10/07/2025 (July): Added `sd-webui-cutoff`, `sd-webui-infinite-image-browsing`, `ultimate-upscale-for-automatic1111`, and `adetailer` as optional choosable extension. Now optional extensions are stored on `additionalextensions.txt`. Now optional extensions are listed at the bottom of the extension checkboxes on the gradio UI.
 - 07/07/2025 (July): Fixed some typo in the repo extract code (fixed lite branch). Added `torchmetrics==0.11.4` as an additional dependency for lite branch.
 - 02/07/2025 (July): Bypass the new colab warning that detects `sd-webui` string.

@@ -57,7 +57,7 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 stripped_line = stripped_line[1:]
             if stripped_line.endswith('\\n",'):
                 stripped_line = stripped_line[:-4]
-            if stripped_line.startswith(r'%env LD'):
+            if stripped_line.startswith('apt -y install'):
                 currentpart = 'part2'
                 # print("[1;33mprepare " + currentpart + "[0m: " + stripped_line)
             elif stripped_line.startswith("git clone") and "https://github.com" in stripped_line and not stripped_line.endswith(camendururepo):
