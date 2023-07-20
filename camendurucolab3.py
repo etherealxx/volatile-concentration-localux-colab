@@ -27,6 +27,7 @@ def pickleload(prevvalue, inputfile):
 #     if debugmode:
 #         print(toprint)
 
+# Dumped from the main colab
 colaboptions = pickleload(None, 'colaboptions')
 if colaboptions:
   currentbranch = colaboptions["branch"]
@@ -60,8 +61,11 @@ with open(colabpath, 'r', encoding='utf-8') as f:
             if stripped_line.startswith('apt -y install'):
                 currentpart = 'part2'
                 # print("[1;33mprepare " + currentpart + "[0m: " + stripped_line)
-            elif stripped_line.startswith("git clone") and "https://github.com" in stripped_line and not stripped_line.endswith(camendururepo):
-                currentpart = 'part2_1'
+            elif stripped_line.startswith("git clone") and "https://github.com" in stripped_line:
+                if stripped_line.endswith(camendururepo):
+                  currentpart = 'part2'
+                else:
+                  currentpart = 'part2_1'
                 # print("[1;33mprepare " + currentpart + "[0m: " + stripped_line)
             elif stripped_line.startswith("%cd /content/stable-diffusion-webui"):
                 currentpart = "part2_2"
@@ -74,10 +78,10 @@ with open(colabpath, 'r', encoding='utf-8') as f:
             if camendururepo in stripped_line and not '/content/volatile-concentration-localux' in stripped_line:
                 if camendururepo in stripped_line and (stripped_line.find(camendururepo) + len(camendururepo) == len(stripped_line) or stripped_line[stripped_line.find(camendururepo) + len(camendururepo)] in [' ', '\n']):
                     stripped_line += ' /content/volatile-concentration-localux'
-            if currentbranch == "lite":
-                if "https://download.pytorch.org/whl/cu116" in stripped_line and not "torchmetrics==0.11.4" in stripped_line:
-                    line_parts = stripped_line.partition("--extra-index-url")
-                    stripped_line = line_parts[0].strip() + " torchmetrics==0.11.4 " + line_parts[1] + line_parts[2]
+            # if currentbranch == "lite":
+            #     if "https://download.pytorch.org/whl/cu116" in stripped_line and not "torchmetrics==0.11.4" in stripped_line:
+            #         line_parts = stripped_line.partition("--extra-index-url")
+            #         stripped_line = line_parts[0].strip() + " torchmetrics==0.11.4 " + line_parts[1] + line_parts[2]
             if stripped_line:
                 if stripped_line.startswith('aria2c') and not '4x-UltraSharp.pth' in stripped_line:
                     pass
@@ -93,8 +97,10 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                         linetoexecute_part1.append(commandtoappend)
                     elif currentpart == 'part2':
                         linetoexecute_part2.append(commandtoappend)
+                        # print(f"appended to part2: {commandtoappend}")
                     elif currentpart == 'part2_1':
                         linetoexecute_part2_1.append(commandtoappend)
+                        # print(f"appended to part2_1: {commandtoappend}")
                     elif currentpart == 'part2_2':
                         linetoexecute_part2_2.append(commandtoappend)
                     elif currentpart == 'part3':
@@ -139,7 +145,11 @@ def rulesbroken(codetoexecute, cwd=''):
                 except Exception as e:
                     print("Exception: " + str(e))
 
+# List of git clone lines
 extensionlines = pickleload(linetoexecute_part2_1, 'extensions')
+
+# Dumped from the main colab, where it compares every extensions to those chosen by user
+# ... resulting extensions to be removed/blacklisted
 extensiontoremove = pickleload(None, 'removedextensions')
 installextensions = []
 
@@ -148,8 +158,14 @@ for ext_line in extensionlines:
     match = re.search(pattern, ext_line)
     if match:
         ext_name = match.group(1)
-        if not ext_name in extensiontoremove:
+        if extensiontoremove:
+            if not ext_name in extensiontoremove:
+                installextensions.append(ext_line)
+        else:
             installextensions.append(ext_line)
+
+# for x in ("linetoexecute_part1", "linetoexecute_part2", "linetoexecute_part2_1", "linetoexecute_part2_2", "linetoexecute_part3"):
+#     print(f"[1;33m{x}[0m = {str(eval(x))}")
 
 if debugmode==True:
     debugline(linetoexecute_part1)
@@ -160,7 +176,7 @@ else:
     elif parttoexecute == 'part2':
         # print("[1;33m" + "part2" + "[0m")
         rulesbroken(linetoexecute_part2)
-        # rulesbroken(linetoexecute_part2_1)
+        # rulesbroken(linetoexecute_part2_1) # Do not use this, installextensions is linetoexecute_part2_1
         # print("[1;33m" + "part2_1" + "[0m")
         rulesbroken(installextensions)
         # print("[1;33m" + "part2_2" + "[0m")
@@ -169,17 +185,18 @@ else:
         # print("[1;33m" + parttoexecute + "[0m")
         rulesbroken(linetoexecute_part3)
 
-for removed_ext in extensiontoremove:
-    pattern = r"https://github.com/\S+/(\S+)"
-    match = re.search(pattern, ext_line)
-    if match:
-        ext_name = match.group(1)
-        if not ext_name in extensiontoremove:
-            installextensions.append(ext_line)
+if extensiontoremove:
+    for removed_ext in extensiontoremove:
+        pattern = r"https://github.com/\S+/(\S+)"
+        match = re.search(pattern, ext_line)
+        if match:
+            ext_name = match.group(1)
+            if not ext_name in extensiontoremove:
+                installextensions.append(ext_line)
 
-if extensiontoremove and not emptymodel:
-  for ext in extensiontoremove:
-    extpath = os.path.join('/content/volatile-concentration-localux/extensions', ext)
-    if os.path.exists(extpath):
-      shutil.rmtree(extpath)
-      print(f"removed {ext} extension")
+    if not emptymodel:
+        for ext in extensiontoremove:
+            extpath = os.path.join('/content/volatile-concentration-localux/extensions', ext)
+            if os.path.exists(extpath):
+                shutil.rmtree(extpath)
+                print(f"removed {ext} extension")

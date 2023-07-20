@@ -35,6 +35,7 @@ def list_additional_ext():
 
 additionalextensions, additionalcommits, additionalbranches = list_additional_ext()
 
+# Dumped from the main colab
 colaboptions = pickleload(None, 'colaboptions')
 if colaboptions:
   currentbranch = colaboptions["branch"]
@@ -88,4 +89,5 @@ for addextgithublink in additionalextensions:
 # extensionlines.append(f"{gitclonestring}a2569875/stable-diffusion-webui-composable-lora {extensionpath}stable-diffusion-webui-composable-lora")
 # extensionlines.append(f"{gitclonestring}DominikDoom/a1111-sd-webui-tagcomplete {extensionpath}a1111-sd-webui-tagcomplete")
 
+# List of git clone lines (and now also git checkout, though won't work as espected currently)
 pickledump(extensionlines, 'extensions')
