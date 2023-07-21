@@ -25,7 +25,9 @@ def pickledump(vartodump, outputfile):
   with open(outputpath, 'wb') as f:
       pickle.dump(vartodump, f)
 
+# 'sortedcolabname' will be accessed by the main colab notebook
 pickledump(sortedcolabname, 'sortedcolabname')
+
 
 # totalcolabcount = len(everycolabname)
 # for i, colabname in enumerate(sortedcolabname):

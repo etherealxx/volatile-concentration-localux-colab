@@ -21,11 +21,14 @@ def list_additional_ext():
     lines = [line.rstrip('\n') for line in file]
     exts = [ext for ext in lines if ext != "" and not ext.startswith("#")]
     return exts
-    
+
+# Dumped from the main colab notebook. List of extension names
 everyextension = pickleload(None, 'fullextensions')
 
 additionalextensions = list_additional_ext()
 
-extnameonly = [x.split("/")[-1] for x in additionalextensions]
+extnameonly = [x.split("/")[-1] for x in additionalextensions] # Separating extension (repo) name from the full github link
+
+# Extensions that are from camenduru's repo
 templist = [x for x in everyextension if x not in extnameonly]
 pickledump(templist, 'tempext')

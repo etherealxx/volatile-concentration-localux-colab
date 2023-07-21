@@ -13,6 +13,7 @@ def pickleload(prevvalue, inputfile):
   else:
     return prevvalue
 
+# Dumped from the main colab
 arialines = pickleload(None, 'arialist')
 colaboptions = pickleload(None, 'colaboptions')
 if colaboptions:
