@@ -114,7 +114,7 @@ def debugline(codetodebug):
         for line in codetodebug:
             print(line)
 
-def rulesbroken(codetoexecute, cwd=''):
+def rulesbroken(codetoexecute, sedlines=None):
     global curdir
     for line in codetoexecute:
         line = line.strip()
@@ -129,18 +129,23 @@ def rulesbroken(codetoexecute, cwd=''):
                         print("[1;32m" + line)
                         print('[0m')
                         splittedcommand = shlex.split(line)
-                        process = subprocess.Popen(splittedcommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, cwd=curdir)
-                        while True:
-                            nextline = process.stdout.readline()
-                            if nextline == '' and process.poll() is not None:
-                                break
-                            else:
-                                if "%" in nextline.strip():
-                                    stripnext = nextline.strip()
-                                    print("\r", end="")
-                                    print(f"\r{stripnext}", end='')
+                        if sedlines:
+                            escapedcommand = line.replace(r'\"', r'\\"')
+                            quotedcommand = shlex.quote(line)
+                            subprocess.run(quotedcommand, shell=True, cwd=curdir)
+                        else:
+                            process = subprocess.Popen(splittedcommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, cwd=curdir)
+                            while True:
+                                nextline = process.stdout.readline()
+                                if nextline == '' and process.poll() is not None:
+                                    break
                                 else:
-                                    print(nextline, end='')
+                                    if "%" in nextline.strip():
+                                        stripnext = nextline.strip()
+                                        print("\r", end="")
+                                        print(f"\r{stripnext}", end='')
+                                    else:
+                                        print(nextline, end='')
 
                 except Exception as e:
                     print("Exception: " + str(e))
@@ -181,9 +186,10 @@ else:
         rulesbroken(installextensions)
         # print("[1;33m" + "part2_2" + "[0m")
         rulesbroken(linetoexecute_part2_2)
+        rulesbroken(linetoexecute_part3)
     elif parttoexecute == 'part3':
         # print("[1;33m" + parttoexecute + "[0m")
-        rulesbroken(linetoexecute_part3)
+        rulesbroken(linetoexecute_part3, "sedlines")
 
 if extensiontoremove:
     for removed_ext in extensiontoremove:
