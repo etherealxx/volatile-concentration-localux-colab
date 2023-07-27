@@ -132,7 +132,10 @@ def rulesbroken(codetoexecute, sedlines=None):
                         if sedlines:
                             # escapedcommand = line.replace(r'\"', r'\\"')
                             # quotedcommand = shlex.quote(line)
-                            subprocess.run(line.replace('\\\\', '\\').replace('\\"', '"'), shell=True)
+                            print("commmand before: " + line)
+                            commandafter = line.replace('\\\\', '\\').replace('\\"', '"')
+                            print("commmand after: " + commandafter)
+                            subprocess.run(commandafter, shell=True)
                         else:
                             process = subprocess.Popen(splittedcommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, cwd=curdir)
                             while True:
