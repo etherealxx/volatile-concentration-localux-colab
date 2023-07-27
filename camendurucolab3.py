@@ -114,7 +114,7 @@ def debugline(codetodebug):
         for line in codetodebug:
             print(line)
 
-def rulesbroken(codetoexecute, cwd=''):
+def rulesbroken(codetoexecute, sedlines=None):
     global curdir
     for line in codetoexecute:
         line = line.strip()
@@ -129,18 +129,26 @@ def rulesbroken(codetoexecute, cwd=''):
                         print("[1;32m" + line)
                         print('[0m')
                         splittedcommand = shlex.split(line)
-                        process = subprocess.Popen(splittedcommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, cwd=curdir)
-                        while True:
-                            nextline = process.stdout.readline()
-                            if nextline == '' and process.poll() is not None:
-                                break
-                            else:
-                                if "%" in nextline.strip():
-                                    stripnext = nextline.strip()
-                                    print("\r", end="")
-                                    print(f"\r{stripnext}", end='')
+                        if sedlines:
+                            # escapedcommand = line.replace(r'\"', r'\\"')
+                            # quotedcommand = shlex.quote(line)
+                            # print("commmand before: " + line)
+                            commandafter = line.replace('\\\\', '\\').replace('\\"', '"')
+                            # print("commmand after: " + commandafter)
+                            subprocess.run(commandafter, shell=True)
+                        else:
+                            process = subprocess.Popen(splittedcommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, cwd=curdir)
+                            while True:
+                                nextline = process.stdout.readline()
+                                if nextline == '' and process.poll() is not None:
+                                    break
                                 else:
-                                    print(nextline, end='')
+                                    if "%" in nextline.strip():
+                                        stripnext = nextline.strip()
+                                        print("\r", end="")
+                                        print(f"\r{stripnext}", end='')
+                                    else:
+                                        print(nextline, end='')
 
                 except Exception as e:
                     print("Exception: " + str(e))
@@ -167,23 +175,24 @@ for ext_line in extensionlines:
 # for x in ("linetoexecute_part1", "linetoexecute_part2", "linetoexecute_part2_1", "linetoexecute_part2_2", "linetoexecute_part3"):
 #     print(f"[1;33m{x}[0m = {str(eval(x))}")
 
-if debugmode==True:
-    debugline(linetoexecute_part1)
-else:
-    if parttoexecute == 'part1':
-        # print("[1;33m" + parttoexecute + "[0m")
-        rulesbroken(linetoexecute_part1)
-    elif parttoexecute == 'part2':
+# if debugmode==True:
+#     debugline(linetoexecute_part1)
+# else:
+#     if parttoexecute == 'part1':
+#         # print("[1;33m" + parttoexecute + "[0m")
+#         rulesbroken(linetoexecute_part1)
+#     elif parttoexecute == 'part2':
         # print("[1;33m" + "part2" + "[0m")
-        rulesbroken(linetoexecute_part2)
-        # rulesbroken(linetoexecute_part2_1) # Do not use this, installextensions is linetoexecute_part2_1
-        # print("[1;33m" + "part2_1" + "[0m")
-        rulesbroken(installextensions)
-        # print("[1;33m" + "part2_2" + "[0m")
-        rulesbroken(linetoexecute_part2_2)
-    elif parttoexecute == 'part3':
-        # print("[1;33m" + parttoexecute + "[0m")
-        rulesbroken(linetoexecute_part3)
+rulesbroken(linetoexecute_part2)
+# rulesbroken(linetoexecute_part2_1) # Do not use this, installextensions is linetoexecute_part2_1
+# print("[1;33m" + "part2_1" + "[0m")
+rulesbroken(installextensions)
+# print("[1;33m" + "part2_2" + "[0m")
+rulesbroken(linetoexecute_part2_2)
+rulesbroken(linetoexecute_part3, "sedlines")
+    # elif parttoexecute == 'part3':
+    #     # print("[1;33m" + parttoexecute + "[0m")
+    #     rulesbroken(linetoexecute_part3, "sedlines")
 
 if extensiontoremove:
     for removed_ext in extensiontoremove:
