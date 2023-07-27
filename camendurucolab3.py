@@ -189,7 +189,7 @@ else:
         rulesbroken(installextensions)
         # print("[1;33m" + "part2_2" + "[0m")
         rulesbroken(linetoexecute_part2_2)
-        rulesbroken(linetoexecute_part3)
+        rulesbroken(linetoexecute_part3, "sedlines")
     elif parttoexecute == 'part3':
         # print("[1;33m" + parttoexecute + "[0m")
         rulesbroken(linetoexecute_part3, "sedlines")
