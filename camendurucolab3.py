@@ -130,9 +130,9 @@ def rulesbroken(codetoexecute, sedlines=None):
                         print('[0m')
                         splittedcommand = shlex.split(line)
                         if sedlines:
-                            escapedcommand = line.replace(r'\"', r'\\"')
-                            quotedcommand = shlex.quote(line)
-                            subprocess.run(quotedcommand, shell=True, cwd=curdir)
+                            # escapedcommand = line.replace(r'\"', r'\\"')
+                            # quotedcommand = shlex.quote(line)
+                            subprocess.run(line, shell=True)
                         else:
                             process = subprocess.Popen(splittedcommand, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, universal_newlines=True, cwd=curdir)
                             while True:
