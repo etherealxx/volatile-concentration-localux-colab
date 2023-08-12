@@ -84,12 +84,12 @@ with open(colabpath, 'r', encoding='utf-8') as f:
             #         line_parts = stripped_line.partition("--extra-index-url")
             #         stripped_line = line_parts[0].strip() + " torchmetrics==0.11.4 " + line_parts[1] + line_parts[2]
             
-            if "gradio_client" in stripped_line:
-                importedverpattern = r'(gradio_client==)(\S+)'
-                importedvermatch = re.search(importedverpattern, stripped_line)
-                if importedvermatch.group(2) != gradio_client_ver:
-                    changedverpattern = r'(gradio_client==)\S+'
-                    stripped_line = re.sub(changedverpattern, rf'\g<1>{gradio_client_ver}', stripped_line)
+            # if "gradio_client" in stripped_line:
+            #     importedverpattern = r'(gradio_client==)(\S+)'
+            #     importedvermatch = re.search(importedverpattern, stripped_line)
+            #     if importedvermatch.group(2) != gradio_client_ver:
+            #         changedverpattern = r'(gradio_client==)\S+'
+            #         stripped_line = re.sub(changedverpattern, rf'\g<1>{gradio_client_ver}', stripped_line)
                     
             if stripped_line:
                 if stripped_line.startswith('aria2c') and not '4x-UltraSharp.pth' in stripped_line:
