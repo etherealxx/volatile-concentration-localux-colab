@@ -22,6 +22,7 @@ Huge thanks to [camenduru](https://github.com/camenduru), without him this colab
 Read [here](https://github.com/etherealxx/volatile-concentration-localux-colab/blob/main/error403guide.md) for guide to fix it.
 
 ### 🆙 Latest Update:
+- 12/08/2023 (August): Gradio version bump to v3.37.0 (fixing the bug where extension selection doesn't appear and when orange button is pressed, error JSON input will shows up). ~~gradio_client version bump to v0.2.10 to matches the Gradio version.~~
 - 27/07/2023 (July): Memory fix. The sed lines are now synced with camenduru's repo.
 - 22/07/2023 (July): Added a little bit of documentation on the colab notebook. Removed unused old scripts. Fixed bug where unticking `choose_model` while at the same time ticking `controlnet_models` on the notebook makes SD fails to launch. Now changing branch after running the main cell atleast once will preserve the previously downloaded models and generated outputs.
 - 20/07/2023 (July): Added functionality for the extension installer where extension's branch and commits are choosable in `additionalextensions.txt`. Removed the whole `libtcmalloc` lines. Adjusted the way this colab gather the code with the recent changes.
