@@ -29,11 +29,13 @@ def list_additional_ext():
   with open(addext_txtpath, 'r') as file:
     lines = [line.rstrip('\n') for line in file]
     exts = [ext for ext in lines if ext != "" and not ext.startswith("#")]
+    # commits and branches functions are untested and might not work
     commits = [ext.lstrip("#commit") for ext in lines if ext != "" and ext.startswith("#commit")]
     branches = [ext.lstrip("#branch") for ext in lines if ext != "" and ext.startswith("#branch")]
-    return exts, commits, branches
+    commands = [ext.lstrip("#run") for ext in lines if ext != "" and ext.startswith("#run")]
+    return exts, commits, branches, commands
 
-additionalextensions, additionalcommits, additionalbranches = list_additional_ext()
+additionalextensions, additionalcommits, additionalbranches, additionalcommands = list_additional_ext()
 
 # Dumped from the main colab
 colaboptions = pickleload(None, 'colaboptions')
@@ -69,10 +71,12 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 commandtoappend = stripped_line.replace('/content/stable-diffusion-webui', '/content/volatile-concentration-localux')
                 extensionlines.append(commandtoappend)
 
+linestorun = dict()
+
 for addextgithublink in additionalextensions:
     gitclonestring = 'git clone https://github.com/'
     repoowner = addextgithublink.split("/")[-2]
-    reponame = addextgithublink.split("/")[-1]
+    reponame = addextgithublink.split("/")[-1].strip()
     for branchline in additionalbranches:
         if reponame in branchline:
             specificbranch = branchline.lstrip(reponame).strip()
@@ -80,12 +84,23 @@ for addextgithublink in additionalextensions:
             break
 
     extensionlines.append(f"{gitclonestring}{repoowner}/{reponame} {extensionpath}{reponame}")
+
     for commitline in additionalcommits:
         if reponame in commitline:
             specificcommit = commitline.lstrip(reponame).strip()
             extensionlines.append(f"git checkout {specificcommit} .")
             break
+    
+    for commandline in additionalcommands:
+        if reponame in commandline:
+            linestorun[reponame] = commandline.lstrip(reponame).strip()
 
+if linestorun:
+    pickledump(linestorun, 'extrequirements')
+else:
+    extreqpath = os.path.join(vclvarpath, "extrequirements.pkl")
+    if os.path.exist(extreqpath):
+        os.remove(extreqpath)
 # extensionlines.append(f"{gitclonestring}a2569875/stable-diffusion-webui-composable-lora {extensionpath}stable-diffusion-webui-composable-lora")
 # extensionlines.append(f"{gitclonestring}DominikDoom/a1111-sd-webui-tagcomplete {extensionpath}a1111-sd-webui-tagcomplete")
 
