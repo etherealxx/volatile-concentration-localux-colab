@@ -13,7 +13,7 @@ gradio_client_ver = "0.2.10"
 
 filename = 'colab.ipynb'
 
-vclvarpath = '/content/vlc'
+vclvarpath = '/usr/vlc'
 
 def pickleload(prevvalue, inputfile):
   inputpath = os.path.join(vclvarpath, inputfile + '.pkl')
@@ -37,7 +37,7 @@ if colaboptions:
   emptymodel = colaboptions["empty_model"]
 
 
-colabpath = f"/content/camendurus/{currentbranch}/{filename}"
+colabpath = f"/usr/camendurus/{currentbranch}/{filename}"
 
 if debugmode==True:
     colabpath = r"C:\Users\Ethereal\Downloads\526_mix_webui_colab.ipynb"
@@ -214,7 +214,7 @@ if extensiontoremove:
 
     if not emptymodel:
         for ext in extensiontoremove:
-            extpath = os.path.join('/content/volatile-concentration-localux/extensions', ext)
+            extpath = os.path.join('/usr/zhuyao/extensions', ext)
             if os.path.exists(extpath):
                 shutil.rmtree(extpath)
                 print(f"removed {ext} extension")
