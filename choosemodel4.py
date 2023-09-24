@@ -19,7 +19,7 @@ for colabname in os.listdir(everycolab):
 
 sortedcolabname = sorted(everycolabname)
 
-vclvarpath = '/usr/vclvariables'
+vclvarpath = '/usr/vlc'
 def pickledump(vartodump, outputfile):
   outputpath = os.path.join(vclvarpath, outputfile + '.pkl')
   with open(outputpath, 'wb') as f:
