@@ -1,10 +1,10 @@
 import os, subprocess, sys, shlex, pickle
 
-curdir = '/content'
+curdir = '/usr'
 branch = '-b uiupdate+aria ' #'-b ariacivitnew ' <-space in the end
 linetoexecute = [
-    'git clone -b v2.1 https://github.com/camenduru/stable-diffusion-webui /content/volatile-concentration-localux', 
-    f'git clone {branch}https://github.com/etherealxx/batchlinks-webui /content/volatile-concentration-localux/extensions/batchlinks-webui'
+    'git clone -b v2.1 https://github.com/camenduru/stable-diffusion-webui /usr/zhuyao', 
+    f'git clone {branch}https://github.com/etherealxx/batchlinks-webui /usr/zhuyao/extensions/batchlinks-webui'
     ]
 
 def rulesbroken(codetoexecute, cwd=''):
