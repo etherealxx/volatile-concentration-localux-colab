@@ -11,7 +11,7 @@ currentbranch = 'stable'
 emptymodel = False
 gradio_client_ver = "0.2.10"
 
-filename = 'stable_diffusion_1_5_webui_colab.ipynb'
+filename = 'colab.ipynb'
 
 vclvarpath = '/content/vclvariables'
 
