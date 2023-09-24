@@ -1,6 +1,6 @@
 import os, pickle
 
-vclvarpath = '/content/vclvariables'
+vclvarpath = '/content/vlc'
 def pickledump(vartodump, outputfile):
   outputpath = os.path.join(vclvarpath, outputfile + '.pkl')
   with open(outputpath, 'wb') as f:
