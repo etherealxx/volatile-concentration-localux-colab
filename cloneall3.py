@@ -1,9 +1,9 @@
 import subprocess
 
-repo_path = '/content/volatile-concentration-localux'
+repo_path = '/usr/zhuyao'
 
 codetorun = """
-!git clone https://github.com/camenduru/stable-diffusion-webui-colab /content/camendurus
+!git clone https://github.com/camenduru/stable-diffusion-webui-colab /usr/camendurus
 """
 
 lines = codetorun.splitlines()
