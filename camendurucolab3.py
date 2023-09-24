@@ -50,7 +50,7 @@ camendururepo = 'camenduru/stable-diffusion-webui'
 with open(colabpath, 'r', encoding='utf-8') as f:
     for line in f:
         stripped_line = line.strip()
-        if stripped_line.startswith(r'"%cd /content'):
+        if stripped_line.startswith(r'"%cd /usr'):
             startcapture = True
         if startcapture:
             if stripped_line.startswith('"'):
@@ -68,7 +68,7 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 else:
                   currentpart = 'part2_1'
                 # print("[1;33mprepare " + currentpart + "[0m: " + stripped_line)
-            elif stripped_line.startswith("%cd /content/stable-diffusion-webui"):
+            elif stripped_line.startswith("%cd /usr/stable-diffusion-webui"):
                 currentpart = "part2_2"
                 # print("[1;33mprepare " + currentpart + "[0m: " + stripped_line)
             elif stripped_line.startswith('sed'):
@@ -76,9 +76,9 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 # print("[1;33mprepare " + currentpart + "[0m: " + stripped_line)
             
             #camendururepo = 'camenduru/stable-diffusion-webui'
-            if camendururepo in stripped_line and not '/content/volatile-concentration-localux' in stripped_line:
+            if camendururepo in stripped_line and not '/usr/volatile-concentration-localux' in stripped_line:
                 if camendururepo in stripped_line and (stripped_line.find(camendururepo) + len(camendururepo) == len(stripped_line) or stripped_line[stripped_line.find(camendururepo) + len(camendururepo)] in [' ', '\n']):
-                    stripped_line += ' /content/volatile-concentration-localux'
+                    stripped_line += ' /usr/volatile-concentration-localux'
             # if currentbranch == "lite":
             #     if "https://download.pytorch.org/whl/cu116" in stripped_line and not "torchmetrics==0.11.4" in stripped_line:
             #         line_parts = stripped_line.partition("--extra-index-url")
@@ -101,7 +101,7 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 elif stripped_line=='rm *.deb':
                     pass
                 else:
-                    commandtoappend = stripped_line.replace('/content/stable-diffusion-webui', '/content/volatile-concentration-localux')
+                    commandtoappend = stripped_line.replace('/usr/stable-diffusion-webui', '/usr/volatile-concentration-localux')
                     if currentpart == 'part1':
                         linetoexecute_part1.append(commandtoappend)
                     elif currentpart == 'part2':
