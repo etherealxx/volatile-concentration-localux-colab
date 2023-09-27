@@ -37,7 +37,7 @@ if colaboptions:
   emptymodel = colaboptions["empty_model"]
 
 
-colabpath = f"/usr/camendurus/{currentbranch}/{filename}"
+colabpath = f"/usr/kame/{currentbranch}/{filename}"
 
 if debugmode==True:
     colabpath = r"C:\Users\Ethereal\Downloads\526_mix_webui_colab.ipynb"
@@ -45,7 +45,7 @@ if debugmode==True:
 print("[1;32mGathering code from " + colabpath + "...")
 print('[0m')
 
-camendururepo = 'camenduru/stable-diffusion-webui'
+kamerepo = 'kame/stable-diffusion-webui'
 
 with open(colabpath, 'r', encoding='utf-8') as f:
     for line in f:
@@ -63,7 +63,7 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 currentpart = 'part2'
                 # print("[1;33mprepare " + currentpart + "[0m: " + stripped_line)
             elif stripped_line.startswith("git clone") and "https://github.com" in stripped_line:
-                if stripped_line.endswith(camendururepo):
+                if stripped_line.endswith(kamerepo):
                   currentpart = 'part2'
                 else:
                   currentpart = 'part2_1'
@@ -75,9 +75,9 @@ with open(colabpath, 'r', encoding='utf-8') as f:
                 currentpart = 'part3'
                 # print("[1;33mprepare " + currentpart + "[0m: " + stripped_line)
             
-            #camendururepo = 'camenduru/stable-diffusion-webui'
-            if camendururepo in stripped_line and not '/usr/volatile-concentration-localux' in stripped_line:
-                if camendururepo in stripped_line and (stripped_line.find(camendururepo) + len(camendururepo) == len(stripped_line) or stripped_line[stripped_line.find(camendururepo) + len(camendururepo)] in [' ', '\n']):
+            #kamerepo = 'kame/stable-diffusion-webui'
+            if kamerepo in stripped_line and not '/usr/volatile-concentration-localux' in stripped_line:
+                if kamerepo in stripped_line and (stripped_line.find(kamerepo) + len(kamerepo) == len(stripped_line) or stripped_line[stripped_line.find(kamerepo) + len(kamerepo)] in [' ', '\n']):
                     stripped_line += ' /usr/volatile-concentration-localux'
             # if currentbranch == "lite":
             #     if "https://download.pytorch.org/whl/cu116" in stripped_line and not "torchmetrics==0.11.4" in stripped_line:
