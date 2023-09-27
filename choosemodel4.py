@@ -10,7 +10,7 @@ import gradio as gr
 
 # subprocess.run("apt -y install -qq aria2", shell=True, check=True)
 
-everycolab = f'/usr/camendurus/{branchtype}'
+everycolab = f'/usr/kame/{branchtype}'
 everycolabname = []
 colabnamepair = []
 for colabname in os.listdir(everycolab):
