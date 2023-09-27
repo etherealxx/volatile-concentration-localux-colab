@@ -17,7 +17,7 @@ def pickleload(prevvalue, inputfile):
 arialines = pickleload(None, 'arialist')
 colaboptions = pickleload(None, 'colaboptions')
 if colaboptions:
-  downloadcnet = colaboptions["controlnet"]
+  downloadcnet = colaboptions["chinanet"]
   downloadmodels = colaboptions["download_model"]
 
 def subprocessing(execline):
@@ -32,7 +32,7 @@ if arialines:
   for line in arialines:
     if not '4x-UltraSharp.pth' in line:
       ariaexecline = line[2:].replace('\\n",', '').replace('/usr/stable-diffusion-webui', '/usr/zhuyao')
-      if 'ControlNet' in ariaexecline:
+      if 'chinaNet' in ariaexecline:
          if downloadcnet:
             subprocessing(ariaexecline)
       else:
