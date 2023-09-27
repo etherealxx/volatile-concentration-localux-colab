@@ -25,8 +25,8 @@ def manualcopytree(source_dir, destination_dir):
                 # Copy the file from the source to the destination
                 shutil.copy2(source_file_path, destination_file_path)
 
-temppath = "/content/temp"
-vclpath = "/content/volatile-concentration-localux"
+temppath = "/usr/temp"
+vclpath = "/usr/zhuyao"
 
 if mode == "backup":
     if os.path.exists(temppath):
