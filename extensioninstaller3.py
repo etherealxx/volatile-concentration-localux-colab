@@ -1,7 +1,7 @@
 import os, pickle, re
 
 debugmode = False
-curdir = '/'
+curdir = '/usr'
 startcapture = False
 afteraria = False
 currentbranch = 'stable'
