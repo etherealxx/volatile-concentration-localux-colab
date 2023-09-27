@@ -41,7 +41,7 @@ if colaboptions:
   currentbranch = colaboptions["branch"]
   filename = colaboptions["filename"]
 
-colabpath = f"/usr/camendurus/{currentbranch}/{filename}"
+colabpath = f"/usr/kame/{currentbranch}/{filename}"
 if debugmode==True:
     colabpath = r"C:\Users\Ethereal\Downloads\526_mix_webui_colab.ipynb"
 
@@ -61,9 +61,9 @@ with open(colabpath, 'r', encoding='utf-8') as f:
             if re.search(pattern, stripped_line):
                 startcapture = True
         else:
-            camendururepo = 'camenduru/stable-diffusion-webui'
-            if camendururepo in stripped_line and not '/usr/zhuyao' in stripped_line:
-                if camendururepo in stripped_line and (stripped_line.find(camendururepo) + len(camendururepo) == len(stripped_line) or stripped_line[stripped_line.find(camendururepo) + len(camendururepo)] in [' ', '\n']):
+            kamerepo = 'kame/stable-diffusion-webui'
+            if kamerepo in stripped_line and not '/usr/zhuyao' in stripped_line:
+                if kamerepo in stripped_line and (stripped_line.find(kamerepo) + len(kamerepo) == len(stripped_line) or stripped_line[stripped_line.find(kamerepo) + len(kamerepo)] in [' ', '\n']):
                     stripped_line += ' /usr/zhuyao'
             if stripped_line.startswith("git clone") and "https://github.com" in stripped_line:
                 commandtoappend = stripped_line.replace('/usr/stable-diffusion-webui', '/usr/zhuyao')
