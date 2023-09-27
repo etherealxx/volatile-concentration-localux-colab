@@ -1,7 +1,7 @@
 import os, subprocess, shlex, pickle, re, shutil
 
 debugmode = False
-curdir = '/'
+curdir = '/usr'
 linetoexecute_part1, linetoexecute_part2, linetoexecute_part2_1, linetoexecute_part2_2, linetoexecute_part3 = [], [], [], [], []
 startcapture = False
 afteraria = False
