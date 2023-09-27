@@ -3,7 +3,7 @@ import subprocess
 repo_path = '/usr/zhuyao'
 
 codetorun = """
-!git clone https://github.com/camenduru/stable-diffusion-webui-colab /usr/camendurus
+!git clone https://github.com/camenduru/stable-diffusion-webui-colab /usr/kame
 """
 
 lines = codetorun.splitlines()
