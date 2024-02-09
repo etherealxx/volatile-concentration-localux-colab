@@ -18,4 +18,4 @@ https://github.com/Bing-su/adetailer
 
 #@otorre1's request, roop alternative
 https://github.com/Gourieff/sd-webui-reactor
-#run sd-webui-reactor pip install -q insightface==0.7.3 onnx==1.14.0 onnxruntime==1.15.0 opencv-python==4.7.0.72 tqdm
+#run sd-webui-reactor pip install -q insightface==0.7.3 onnx "onnxruntime-gpu>=1.16.1" opencv-python tqdm

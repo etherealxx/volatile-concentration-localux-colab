@@ -14,8 +14,9 @@ everycolab = f'/content/camendurus/{branchtype}'
 everycolabname = []
 colabnamepair = []
 for colabname in os.listdir(everycolab):
-  colabnamepruned = colabname.partition('_webui_colab.ipynb')[0]
-  everycolabname.append(colabnamepruned)
+    if not colabname.endswith('_run.ipynb'):
+        colabnamepruned = colabname.partition('_webui_colab.ipynb')[0]
+        everycolabname.append(colabnamepruned)
 
 sortedcolabname = sorted(everycolabname)
 
