@@ -168,18 +168,26 @@ extensionlines = pickleload(linetoexecute_part2_1, 'extensions')
 # Dumped from the main colab, where it compares every extensions to those chosen by user
 # ... resulting extensions to be removed/blacklisted
 extensiontoremove = pickleload(None, 'removedextensions')
+extensionrequirements = pickleload(None, 'extrequirements')
 installextensions = []
 
 for ext_line in extensionlines:
+    def addlineandcheck(name, line):
+        installextensions.append(line)
+        if name in extensionrequirements:
+            if extensionrequirements[name].startswith(name):
+                extensionrequirements[name] = extensionrequirements[name].lstrip(name)
+            installextensions.append(extensionrequirements[name])
+
     pattern = r"https://github.com/\S+/(\S+)"
     match = re.search(pattern, ext_line)
     if match:
         ext_name = match.group(1)
         if extensiontoremove:
             if not ext_name in extensiontoremove:
-                installextensions.append(ext_line)
+                addlineandcheck(ext_name, ext_line)
         else:
-            installextensions.append(ext_line)
+            addlineandcheck(ext_name, ext_line)
 
 # for x in ("linetoexecute_part1", "linetoexecute_part2", "linetoexecute_part2_1", "linetoexecute_part2_2", "linetoexecute_part3"):
 #     print(f"[1;33m{x}[0m = {str(eval(x))}")
