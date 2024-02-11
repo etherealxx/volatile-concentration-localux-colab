@@ -23,6 +23,7 @@ Huge thanks to [camenduru](https://github.com/camenduru), without him this colab
 Read [here](https://github.com/etherealxx/volatile-concentration-localux-colab/blob/main/error403guide.md) for guide to fix it.
 
 ### 🆙 Latest Update:
+- 12/01/2024 (February): Using camenduru's v2.7 branch to fix [this issue](https://github.com/camenduru/stable-diffusion-webui-colab/issues/494). Using `--disable-model-loading-ram-optimization` to fix another issue.
 - 10/01/2024 (February): Gradio version bump to v3.41.2. Updated `choosemodel4.py` to exclude camenduru's 'run' colab. Added `httpx` pip install. Merging the September branch (lol i forgot)
 - 10/09/2023 (September): Added `sd-webui-reactor` (roop alternative) as optional choosable extension. `additionalextensions.txt` now support running bash code if an extension is selected (mostly for dependencies).
 

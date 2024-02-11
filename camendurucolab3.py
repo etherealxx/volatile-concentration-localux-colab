@@ -77,7 +77,12 @@ with open(colabpath, 'r', encoding='utf-8') as f:
             
             #camendururepo = 'camenduru/stable-diffusion-webui'
             if camendururepo in stripped_line and not '/content/volatile-concentration-localux' in stripped_line:
-                if camendururepo in stripped_line and (stripped_line.find(camendururepo) + len(camendururepo) == len(stripped_line) or stripped_line[stripped_line.find(camendururepo) + len(camendururepo)] in [' ', '\n']):
+                
+                # Attempt to fix `TypeError: kill() missing 1 required positional argument: 'self'` issue
+                if "-b v2.4" in stripped_line:
+                    stripped_line = stripped_line.replace("-b v2.4", "-b v2.7")
+
+                if (stripped_line.find(camendururepo) + len(camendururepo) == len(stripped_line) or stripped_line[stripped_line.find(camendururepo) + len(camendururepo)] in [' ', '\n']):
                     stripped_line += ' /content/volatile-concentration-localux'
             # if currentbranch == "lite":
             #     if "https://download.pytorch.org/whl/cu116" in stripped_line and not "torchmetrics==0.11.4" in stripped_line:
@@ -200,6 +205,12 @@ for ext_line in extensionlines:
 #         rulesbroken(linetoexecute_part1)
 #     elif parttoexecute == 'part2':
         # print("[1;33m" + "part2" + "[0m")
+
+# print("linetoexecute_part2: " + str(linetoexecute_part2))
+# print("installextensions: " + str(installextensions))
+# print("linetoexecute_part2_2: " + str(linetoexecute_part2_2))
+# print("linetoexecute_part3: " + str(linetoexecute_part3))
+
 rulesbroken(linetoexecute_part2)
 # rulesbroken(linetoexecute_part2_1) # Do not use this, installextensions is linetoexecute_part2_1
 # print("[1;33m" + "part2_1" + "[0m")
